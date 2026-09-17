@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "date": "2026-09-17",
+        "genre": "السياسة الدولية (Politics)",
+        "source": "BBC News",
+        "original_title": "Diplomatic talks resume amid rising regional tensions",
+        "original_text": "Delegates from multiple nations gathered in Geneva to restart stalled negotiations, aiming to de-escalate the ongoing crisis and establish a fragile humanitarian corridor.",
+        "arabic_title": "استئناف المحادثات الدبلوماسية وسط تصاعد التوترات الإقليمية",
+        "arabic_text": "اجتمع وفود من عدة دول في جنيف لإعادة إطلاق المفاوضات المتعثرة، بهدف خفض التصعيد في الأزمة الجارية وإنشاء ممر إنساني هش.",
+        "glossary": "• Stalled negotiations: مفاوضات متعثرة / متوقفة\n• De-escalate: خفض التصعيد / تهدئة الموقف\n• Humanitarian corridor: ممر إنساني",
+        "translation_notes": "تم استخدام تعبير 'مفاوضات متعثرة' لترجمة 'stalled' لما تحمله من دقة صحفية تفضل على الترجمة الحرفية 'المتوقفة'."
+    },
+    {
+        "date": "2026-09-17",
+        "genre": "الأعمال والاقتصاد (Business)",
+        "source": "Reuters",
+        "original_text": "Global markets fluctuated today as central banks signaled potential interest rate cuts following cooling inflation data.",
+        "arabic_title": "تقلب الأسواق العالمية وسط مؤشرات على خفض الفائدة",
+        "arabic_text": "شهدت الأسواق العالمية تقلبات اليوم مع إشارة البنوك المركزية إلى احتمال خفض أسعار الفائدة في أعقاب بيانات تراجع التضخم.",
+        "glossary": "• Central banks: البنوك المركزية\n• Interest rate cuts: تخفيض أسعار الفائدة\n• Cooling inflation: تراجع التضخم / انحسار التضخم",
+        "translation_notes": "استُخدم مصطلح 'انحسار التضخم' أو 'تراجع التضخم' كبديل بليغ لـ 'cooling inflation' في السياق الصحفي الاقتصادي."
+    }
+]
