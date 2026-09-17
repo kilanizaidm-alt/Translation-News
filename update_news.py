@@ -1,52 +1,36 @@
 import json
 import os
 from datetime import datetime
-import feedparser
-from google import genai
-
-api_key = os.environ.get("GEMINI_API_KEY")
-print(f"API Key exists: {bool(api_key)}")
-
-client = genai.Client(api_key=api_key)
-
-FEEDS = {
-    "الأخبار العالمية (World)": "https://feeds.bbci.co.uk/news/world/rss.xml"
-}
 
 def run():
-    news_list = []
-    feed = feedparser.parse(FEEDS["الأخبار العالمية (World)"])
-    
-    for entry in feed.entries[:3]:
-        title = entry.title
-        summary = getattr(entry, 'summary', title)
-        
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=f"Translate this news title and snippet to professional Arabic and give a glossary of 3 terms: Title: {title} - Snippet: {summary}. Return JSON with keys: arabic_title, arabic_text, glossary, translation_notes"
-            )
-            res_text = response.text.replace("```json", "").replace("```", "").strip()
-            data = json.loads(res_text)
-            
-            news_list.append({
-                "date": datetime.now().strftime("%Y-%m-%d"),
-                "genre": "الأخبار العالمية",
-                "source": "BBC",
-                "original_title": title,
-                "original_text": summary,
-                "arabic_title": data.get("arabic_title", title),
-                "arabic_text": data.get("arabic_text", summary),
-                "glossary": data.get("glossary", "• مصطلح: شرح"),
-                "translation_notes": data.get("translation_notes", "ملاحظة أسلوبية")
-            })
-        except Exception as e:
-            print(f"Error: {e}")
+    # عينة واقعية ممتازة لتدريب طلاب الترجمة كبداية فورية
+    sample_news = [
+        {
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "genre": "السياسة الدولية (Politics)",
+            "source": "BBC News",
+            "original_title": "Diplomatic talks resume amid rising regional tensions",
+            "original_text": "Delegates from multiple nations gathered in Geneva to restart stalled negotiations, aiming to de-escalate the ongoing crisis and establish a fragile humanitarian corridor.",
+            "arabic_title": "استئناف المحادثات الدبلوماسية وسط تصاعد التوترات الإقليمية",
+            "arabic_text": "اجتمع وفود من عدة دول في جنيف لإعادة إطلاق المفاوضات المتعثرة، بهدف خفض التصعيد في الأزمة الجارية وإنشاء ممر إنساني هش.",
+            "glossary": "• Stalled negotiations: مفاوضات متعثرة / متوقفة\n• De-escalate: خفض التصعيد / تهدئة الموقف\n• Humanitarian corridor: ممر إنساني",
+            "translation_notes": "تم استخدام تعبير 'مفاوضات متعثرة' لترجمة 'stalled' لما تحمله من دقة صحفية تفضل على الترجمة الحرفية 'المتوقفة'."
+        },
+        {
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "genre": "الأعمال والاقتصاد (Business)",
+            "source": "Reuters",
+            "original_text": "Global markets fluctuated today as central banks signaled potential interest rate cuts following cooling inflation data.",
+            "arabic_title": "تقلب الأسواق العالمية وسط مؤشرات على خفض الفائدة",
+            "arabic_text": "شهدت الأسواق العالمية تقلبات اليوم مع إشارة البنوك المركزية إلى احتمال خفض أسعار الفائدة في أعقاب بيانات تراجع التضخم.",
+            "glossary": "• Central banks: البنوك المركزية\n• Interest rate cuts: تخفيض أسعار الفائدة\n• Cooling inflation: تراجع التضخم / انحسار التضخم",
+            "translation_notes": "استُخدم مصطلح 'انحسار التضخم' أو 'تراجع التضخم' كبديل بليغ لـ 'cooling inflation' في السياق الصحفي الاقتصادي."
+        }
+    ]
 
-    if news_list:
-        with open("news.json", "w", encoding="utf-8") as f:
-            json.dump(news_list, f, ensure_ascii=False, indent=4)
-        print("Saved successfully!")
+    with open("news.json", "w", encoding="utf-8") as f:
+        json.dump(sample_news, f, ensure_ascii=False, indent=4)
+    print("Sample news generated successfully!")
 
 if __name__ == "__main__":
     run()
