@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التدريب على الترجمة الصحفية</title>
+    <title>منصة التدريب على الترجمة الصحفية والمصطلحات</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
     <header class="bg-indigo-900 text-white py-6 shadow-md">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-3xl font-bold">أرشيف الترجمة الصحفية اليومية</h1>
-            <p class="text-indigo-200 mt-2">مرجع يومي لطلاب الترجمة - أخبار عالمية مترجمة مع ملاحظات أسلوبية</p>
+            <h1 class="text-3xl font-bold">أرشيف الترجمة الصحفية ومسرد المصطلحات</h1>
+            <p class="text-indigo-200 mt-2">مرجع أكاديمي يومي لطلاب الترجمة - نصوص عالمية، ترجمة احترافية، ومسرد مصطلحات مفصل</p>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <div id="articles-container" class="space-y-6">
-            <p class="text-center text-slate-500">جاري تحميل الأخبار... (إذا كانت هذه هي المرة الأولى، انتظر حتى يتم تشغيل النظام لأول مرة)</p>
+            <p class="text-center text-slate-500">جاري تحميل الأخبار والمسرد المصطلحي...</p>
         </div>
     </main>
 
@@ -31,7 +31,7 @@
 
                 articles.forEach(art => {
                     const card = document.createElement('div');
-                    card.className = 'bg-white rounded-xl shadow-md p-6 border border-slate-100';
+                    card.className = 'bg-white rounded-xl shadow-md p-6 border border-slate-100 mb-6';
                     card.innerHTML = `
                         <div class="flex justify-between items-center text-sm text-slate-500 mb-3">
                             <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-medium">${art.genre}</span>
@@ -47,14 +47,18 @@
                                 <p class="text-sm text-slate-700">${art.arabic_text}</p>
                             </div>
                         </div>
+                        <div class="bg-sky-50 border-r-4 border-sky-500 p-4 rounded-lg text-sm text-sky-900 mt-3">
+                            <h4 class="font-bold mb-1">📖 مسرد المصطلحات الصحفية (Glossary):</h4>
+                            <p class="whitespace-pre-line">${art.glossary}</p>
+                        </div>
                         <div class="bg-amber-50 border-r-4 border-amber-400 p-3 rounded text-sm text-amber-900 mt-3">
-                            <strong>إضاءة أسلوبية/مصطلحية:</strong> ${art.translation_notes}
+                            <strong>💡 إضاءة أسلوبية:</strong> ${art.translation_notes}
                         </div>
                     `;
                     container.appendChild(card);
                 });
             } catch (error) {
-                document.getElementById('articles-container').innerHTML = '<p class="text-center text-slate-500">سيظهر أرشيف الأخبار هنا تلقائياً بمجرد تشغيل النظام لأول مرة.</p>';
+                document.getElementById('articles-container').innerHTML = '<p class="text-center text-slate-500">سيظهر أرشيف المصطلحات هنا بمجرد تشغيل النظام.</p>';
             }
         }
         loadNews();
