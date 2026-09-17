@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التدريب على الترجمة الصحفية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+    <header class="bg-indigo-900 text-white py-6 shadow-md">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl font-bold">أرشيف الترجمة الصحفية اليومية</h1>
+            <p class="text-indigo-200 mt-2">مرجع يومي لطلاب الترجمة - أخبار عالمية مترجمة مع ملاحظات أسلوبية</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div id="articles-container" class="space-y-6">
+            <p class="text-center text-slate-500">جاري تحميل الأخبار... (إذا كانت هذه هي المرة الأولى، انتظر حتى يتم تشغيل النظام لأول مرة)</p>
+        </div>
+    </main>
+
+    <script>
+        async function loadNews() {
+            try {
+                const response = await fetch('news.json');
+                if (!response.ok) throw new Error("لا توجد أخبار بعد");
+                const articles = await response.json();
+                const container = document.getElementById('articles-container');
+                container.innerHTML = '';
+
+                articles.forEach(art => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-xl shadow-md p-6 border border-slate-100';
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center text-sm text-slate-500 mb-3">
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-medium">${art.genre}</span>
+                            <span>${art.date} | المصدر: ${art.source}</span>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4 my-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-left" dir="ltr">
+                                <h3 class="font-bold text-slate-900 mb-2">${art.original_title}</h3>
+                                <p class="text-sm text-slate-700">${art.original_text}</p>
+                            </div>
+                            <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                <h3 class="font-bold text-emerald-900 mb-2">${art.arabic_title}</h3>
+                                <p class="text-sm text-slate-700">${art.arabic_text}</p>
+                            </div>
+                        </div>
+                        <div class="bg-amber-50 border-r-4 border-amber-400 p-3 rounded text-sm text-amber-900 mt-3">
+                            <strong>إضاءة أسلوبية/مصطلحية:</strong> ${art.translation_notes}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('articles-container').innerHTML = '<p class="text-center text-slate-500">سيظهر أرشيف الأخبار هنا تلقائياً بمجرد تشغيل النظام لأول مرة.</p>';
+            }
+        }
+        loadNews();
+    </script>
+</body>
+</html>
